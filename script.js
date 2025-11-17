@@ -20,8 +20,7 @@
     try { return localStorage.getItem(key); } catch (_) { return null; }
   }
   function getDiscordClientId() {
-    // Priorytet: query (?dcid=), potem localStorage('discord_client_id'), na końcu stała
-    return getQueryParam('dcid') || getStored('discord_client_id') || '812428903230079037';
+    return getQueryParam('dcid') || getStored('discord_client_id') || '1440102111848300615';
   }
   function getDiscordRedirectUri() {
     // Priorytet: query (?redirect_uri=), potem localStorage('discord_redirect_uri'), na końcu stała
