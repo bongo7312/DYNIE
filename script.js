@@ -631,7 +631,7 @@
     overlayInput.value = '';
     overlayMsg.textContent = '';
     overlay.classList.remove('hidden');
-    showBackdrop();
+    
 
     // Pozycjonowanie overlay względem mapy i miejsca kliknięcia
     const mapRect = map.getBoundingClientRect();
