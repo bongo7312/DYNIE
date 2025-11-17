@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dynie 4Life</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="authGate" class="auth-gate" aria-label="Autoryzacja" role="dialog">
+      <div class="gate-content">
+        <div class="gate-title">Autoryzacja</div>
+        <div id="authGateMsg" class="gate-msg">Zaloguj się przez Discord. Wymagane odpowiednie role.</div>
+        <button id="authGateLoginBtn" class="btn primary">Zaloguj przez Discord</button>
+      </div>
+    </div>
+    <div class="topbar">
+      <h1>Mapka dyn 4Life</h1>
+      <div class="actions-left" aria-label="Szybkie akcje">
+        <button id="actionsToggle" class="btn actions-toggle" aria-expanded="false" aria-controls="actionsPanel" title="Pokaż akcje">≡</button>
+        <div id="actionsPanel" class="actions-panel" hidden>
+          <button id="exportJsonBtn" class="btn" title="Pobierz markers.json">Pobierz Dynie<span class="btn-sub">(Tylko Po Zalogowaniu)</span></button>
+          <button id="actionThanksBtn" class="btn" title="Podziękowania">Podziękowania</button>
+          <button id="actionRespBtn" class="btn" title="Możliwe respy dyń">Możliwe respy dyń</button>
+        </div>
+      </div>
+      <div class="help">  
+        Dynie są z roku 2025 (Jest możliwość wczytania)
+      </div>
+      <div class="actions">
+        <button id="editToggleBtn" class="btn">Login</button>
+        <button id="discordLogoutBtn" class="btn hidden">Wyloguj</button>
+        <span id="userIndicator" class="user-indicator"></span>
+        <input id="importJsonInput" type="file" accept="application/json" class="hidden" />
+        
+      </div>
+    </div>
+    
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="Zakładki miast">
+        <button id="sidebarToggle" class="btn sidebar-toggle" aria-expanded="true" aria-controls="cityTabs">Miasta ▾</button>
+        <div id="cityTabs" class="tabs">
+          <button class="tab" data-city="LS" title="Los Santos">LS</button>
+          <button class="tab" data-city="SF" title="San Fierro">SF</button>
+          <button class="tab" data-city="LV" title="Las Venturas">LV</button>
+        </div>
+      </aside>
+
+      <div id="map" class="map" aria-label="Mapa GTA San Andreas" role="img">
+        <div id="mapContent" class="map-content"></div>
+        <!-- Overlay do wprowadzania URL obrazka (zamiast prompt) -->
+        <div id="imgOverlay" class="img-overlay hidden" role="dialog" aria-label="Dodaj obrazek">
+          <div class="overlay-row">
+            <label for="imgOverlayInput">URL obrazka (Imgur):</label>
+            <input id="imgOverlayInput" type="text" placeholder="https://i.imgur.com/..." />
+          </div>
+          <div class="overlay-actions">
+            <button id="imgOverlaySave" class="btn primary">Zapisz</button>
+            <button id="imgOverlayClear" class="btn danger">Usuń obraz</button>
+            <button id="imgOverlayCancel" class="btn">Anuluj</button>
+            <span id="imgOverlayMsg" class="msg" aria-live="polite"></span>
+          </div>
+        </div>
+        <!-- Overlay do trybu edycji (logowanie edytora) -->
+        <div id="roleOverlay" class="role-overlay hidden" role="dialog" aria-label="Panel logowania">
+          <div class="overlay-row">
+            <label for="roleOverlayInput">Zaloguj się do panelu:</label>
+            <input id="roleOverlayInput" type="password" placeholder="" />
+          </div>
+          <div class="overlay-actions">
+            <button id="roleOverlaySave" class="btn primary">Zaloguj się</button>
+            <button id="roleOverlayCancel" class="btn danger">Anuluj</button>
+            <span id="roleOverlayMsg" class="msg" aria-live="polite"></span>
+          </div>
+        </div>
+        <div id="lightboxOverlay" class="lightbox-overlay hidden" role="dialog" aria-label="Podgląd obrazka">
+          <div id="lightboxContent" class="lightbox-content">
+            <img id="lightboxImg" alt="Podgląd dyni" />
+            <button id="lightboxClose" class="lightbox-close" aria-label="Zamknij">✕</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+
+    <div class="support-footer" aria-label="Wsparcie">
+      <div class="support-subtext">Dziękujemy za wsparcie każdej osobie która podesłała ss`y ( Anonimowość jest w 100% ).❤️</div>
+    </div>
+
+    <div id="infoModal" class="info-modal hidden" role="dialog" aria-label="Informacje">
+      <button id="infoModalClose" class="info-modal-close" aria-label="Zamknij">✕</button>
+      <div id="infoModalContent" class="info-modal-content"></div>
+    </div>
+
+    <template id="tplInfo">
+      <div>
+        • Przeciągaj mapę lewym przyciskiem myszy
+        <br />
+        • Dodaj punkt: Shift + lewy przycisk myszy (w trybie edycji)
+        <br />
+        • Podgląd obrazków w markerach: najedź kursorem, scroll przybliża.
+        <br />
+        • Kliknięcie w obraz powiększa na pełny ekran aby wyjść ( esc )
+        <br />
+      </div>
+    </template>
+    <template id="tplThanks">
+      <div>
+        Dziękujemy każdej osobie za wsparcie i udostępnione ss.
+        <br />
+        <ul class="thanks-list">
+          <li>❤️ Listy nie ma ESZ</li>
+        </ul>
+      </div>
+    </template>
+    <template id="tplResp">
+      <div>
+        Sprawdź listę możliwych respów ( nie ma podglądu ss ):
+        <br />
+        <a class="resp-link" href="https://imgur.com/a/Tsmu24Y" target="_blank" rel="noopener noreferrer">Kliknij tutaj</a>
+      </div>
+    </template>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+
+  </body>
+  </html>
