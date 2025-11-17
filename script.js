@@ -21,11 +21,11 @@
   }
   function getDiscordClientId() {
     // Priorytet: query (?dcid=), potem localStorage('discord_client_id'), na końcu stała
-    return getQueryParam('dcid') || getStored('discord_client_id') || '812428903230079037';
+    return getQueryParam('dcid') || getStored('discord_client_id') || '1439299924444446852';
   }
   function getDiscordRedirectUri() {
-    // Priorytet: query (?redirect_uri=), potem localStorage('discord_redirect_uri'), na końcu bieżący origin
-    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || (window.location.origin + '/');
+    // Priorytet: query (?redirect_uri=), potem localStorage('discord_redirect_uri'), na końcu stała
+    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://bongo7312.github.io/DYNIE/';
   }
   const DISCORD_CLIENT_ID = getDiscordClientId();
   const DISCORD_REDIRECT_URI = getDiscordRedirectUri();
