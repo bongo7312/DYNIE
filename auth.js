@@ -17,11 +17,11 @@
   }
   function getDiscordClientId() {
     // Domyślna wartość ustawiona zgodnie z Twoją aplikacją Discord
-    return getQueryParam('dcid') || getStored('discord_client_id') || '1439299924444446852';
+    return getQueryParam('dcid') || getStored('discord_client_id') || '1440102111848300615';
   }
   function getDiscordRedirectUri() {
     // Domyślna wartość ustawiona na wskazany adres
-    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://xrd004.github.io/DYNIE/';
+    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://bongo7312.github.io/DYNIE/';
   }
   const DISCORD_CLIENT_ID = getDiscordClientId();
   const DISCORD_REDIRECT_URI = getDiscordRedirectUri();
@@ -171,7 +171,7 @@
           window.setAuthorized?.(true);
         } else {
           window.setAuthorized?.(false);
-          window.setAuthGateMessage?.('Nie posiadasz wymaganej rangi. Zgłoś się do _XRD na Discord.');
+          window.setAuthGateMessage?.('Nie posiadasz wymaganej rangi aby ją otrzymać to stań na wiadomo czym.');
         }
       } catch (e) {
         // Fallback: sprawdź członkostwo w serwerze
