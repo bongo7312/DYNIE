@@ -21,7 +21,7 @@
   }
   function getDiscordRedirectUri() {
     // Domyślna wartość ustawiona na wskazany adres
-    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://bongo7312.github.io/DYNIE/';
+    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://bongo7312.github.io/DYNIE';
   }
   const DISCORD_CLIENT_ID = getDiscordClientId();
   const DISCORD_REDIRECT_URI = getDiscordRedirectUri();

@@ -24,7 +24,7 @@
   }
   function getDiscordRedirectUri() {
     // Priorytet: query (?redirect_uri=), potem localStorage('discord_redirect_uri'), na końcu stała
-    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://bongo7312.github.io/DYNIE/';
+    return getQueryParam('redirect_uri') || getStored('discord_redirect_uri') || 'https://bongo7312.github.io/DYNIE';
   }
   const DISCORD_CLIENT_ID = getDiscordClientId();
   const DISCORD_REDIRECT_URI = getDiscordRedirectUri();
