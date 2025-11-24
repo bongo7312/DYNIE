@@ -27,7 +27,7 @@
   const DISCORD_REDIRECT_URI = getDiscordRedirectUri();
   const DISCORD_SCOPES = ['identify','guilds','guilds.members.read'];
   // Whitelist edytorów — tylko te ID Discord mogą włączać tryb edycji przez logowanie
-  const ALLOWED_EDITOR_IDS = ['812428903230079037'];
+  const ALLOWED_EDITOR_IDS = ['812428903230079037','410904692256800768'];
   const REQUIRED_ROLE_IDS = ['1435742952319090708','1232458108916334733'];
   function getGuildId() {
     return getQueryParam('guild_id') || getStored('discord_guild_id') || '1225560157157588992';
