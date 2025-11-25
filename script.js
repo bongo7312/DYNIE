@@ -361,6 +361,16 @@
     if (!('serviceWorker' in navigator)) return;
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
+  async function unregisterImageCacheSW() {
+    try {
+      if (!('serviceWorker' in navigator)) return;
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const r of regs) await r.unregister();
+      if ('caches' in window) {
+        try { await caches.delete('dynie-images-v1'); } catch (_) {}
+      }
+    } catch (_) {}
+  }
   function prefetchMarkerImages() {
     if (!('serviceWorker' in navigator)) return;
     const urls = (state.markersData || []).map(m => m.imgUrl).filter(Boolean);
@@ -471,6 +481,8 @@
   const profileUser = document.getElementById('profileUser');
   const profileAvatarImg = document.getElementById('profileAvatarImg');
   const profileAvatarName = document.getElementById('profileAvatarName');
+  const profileBadge = document.getElementById('profileBadge');
+  const profileBadgeImg = document.getElementById('profileBadgeImg');
   // Elementy Discord usunięte z UI — pozostawiamy referencje null, jeśli istnieją w kodzie
   const discordLoginBtn = document.getElementById('discordLoginBtn');
   const discordLogoutBtn = document.getElementById('discordLogoutBtn');
@@ -501,6 +513,7 @@
       if (authGate) { authGate.classList.add('hidden'); authGate.style.display = 'none'; }
       ensureHiddenMarkersLoaded();
       prefetchMarkerImages();
+      unregisterImageCacheSW();
     } else {
       if (authGate) { authGate.classList.remove('hidden'); authGate.style.display = 'flex'; }
     }
@@ -585,15 +598,17 @@
         profileUser.textContent = '';
       }
     }
-    if (profileAvatarImg) {
+    if (profileAvatarImg || profileBadgeImg) {
       if (hasUser) {
         const u = state.discordUser;
         let src = '';
         if (u && u.avatar) src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`;
         else if (u && u.discriminator) src = `https://cdn.discordapp.com/embed/avatars/${Number(u.discriminator)%5}.png`;
-        profileAvatarImg.src = src;
+        if (profileAvatarImg) profileAvatarImg.src = src;
+        if (profileBadgeImg) profileBadgeImg.src = src;
       } else {
-        profileAvatarImg.src = '';
+        if (profileAvatarImg) profileAvatarImg.src = '';
+        if (profileBadgeImg) profileBadgeImg.src = '';
       }
     }
     if (profileAvatarName) {
@@ -1318,7 +1333,8 @@
       if (!expanded) profilePanel.hidden = true;
     }
   });
-  profileAvatar?.addEventListener('click', () => {
-    const expanded = profileAvatar.getAttribute('aria-expanded') === 'true';
+  (profileAvatar || profileBadge)?.addEventListener('click', () => {
+    const trigger = profileAvatar || profileBadge;
+    const expanded = trigger.getAttribute('aria-expanded') === 'true';
     if (expanded) collapseProfile(); else expandProfile();
   });
