@@ -466,6 +466,11 @@
   const authGateMsg = document.getElementById('authGateMsg');
   const actionsToggle = document.getElementById('actionsToggle');
   const actionsPanel = document.getElementById('actionsPanel');
+  const profileAvatar = document.getElementById('profileAvatar');
+  const profilePanel = document.getElementById('profilePanel');
+  const profileUser = document.getElementById('profileUser');
+  const profileAvatarImg = document.getElementById('profileAvatarImg');
+  const profileAvatarName = document.getElementById('profileAvatarName');
   // Elementy Discord usunięte z UI — pozostawiamy referencje null, jeśli istnieją w kodzie
   const discordLoginBtn = document.getElementById('discordLoginBtn');
   const discordLogoutBtn = document.getElementById('discordLogoutBtn');
@@ -572,6 +577,27 @@
       } else {
         userIndicator.textContent = '';
       }
+    }
+    if (profileUser) {
+      if (hasUser) {
+        profileUser.textContent = `Zalogowany: ${state.discordUser.username}#${state.discordUser.discriminator || ''}`;
+      } else {
+        profileUser.textContent = '';
+      }
+    }
+    if (profileAvatarImg) {
+      if (hasUser) {
+        const u = state.discordUser;
+        let src = '';
+        if (u && u.avatar) src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`;
+        else if (u && u.discriminator) src = `https://cdn.discordapp.com/embed/avatars/${Number(u.discriminator)%5}.png`;
+        profileAvatarImg.src = src;
+      } else {
+        profileAvatarImg.src = '';
+      }
+    }
+    if (profileAvatarName) {
+      profileAvatarName.textContent = hasUser ? (state.discordUser.username || '') : 'Profil';
     }
     // Edycja nie jest powiązana z Discord — zarządzana osobno przez hasło
   }
@@ -1269,3 +1295,30 @@
   });
   setAuthorized(false);
 })();
+  // Rozwijanie sekcji Profil
+  function expandProfile() {
+    if (!profilePanel || !profileAvatar) return;
+    profilePanel.hidden = false;
+    profilePanel.style.height = '0px';
+    void profilePanel.offsetHeight;
+    profilePanel.style.height = profilePanel.scrollHeight + 'px';
+    profileAvatar.setAttribute('aria-expanded', 'true');
+  }
+  function collapseProfile() {
+    if (!profilePanel || !profileAvatar) return;
+    profilePanel.style.height = profilePanel.scrollHeight + 'px';
+    void profilePanel.offsetHeight;
+    profilePanel.style.height = '0px';
+    profileAvatar.setAttribute('aria-expanded', 'false');
+  }
+  profilePanel?.addEventListener('transitionend', (e) => {
+    if (e.propertyName === 'height') {
+      const expanded = profileAvatar?.getAttribute('aria-expanded') === 'true';
+      profilePanel.style.height = expanded ? 'auto' : '0px';
+      if (!expanded) profilePanel.hidden = true;
+    }
+  });
+  profileAvatar?.addEventListener('click', () => {
+    const expanded = profileAvatar.getAttribute('aria-expanded') === 'true';
+    if (expanded) collapseProfile(); else expandProfile();
+  });

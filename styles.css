@@ -373,7 +373,7 @@ body {
   color: #ffffff;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 2px 0 #c0392b, 0 6px 14px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 0 #008537, 0 6px 14px rgba(0,0,0,0.25);
   transition: background 120ms ease, transform 80ms ease, box-shadow 120ms ease;
 }
 .role-overlay .btn.primary { background: #2ecc71; }
@@ -585,3 +585,8 @@ body {
   z-index: 900;
 }
 .modal-backdrop.hidden { display: none; }
+.profile-user { font-weight: 800; font-size: 16px; margin-bottom: 8px; color: #dfe6ef; }
+.profile-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.profile-avatar { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 9999px; background: #232833; color: #dfe6ef; border: 1px solid rgba(192,57,43,0.45); cursor: pointer; }
+.profile-avatar-img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.profile-avatar-name { font-weight: 700; }

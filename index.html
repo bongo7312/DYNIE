@@ -19,20 +19,31 @@
       <div class="actions-left" aria-label="Szybkie akcje">
         <button id="actionsToggle" class="btn actions-toggle" aria-expanded="false" aria-controls="actionsPanel" title="Pokaż akcje">≡</button>
         <div id="actionsPanel" class="actions-panel" hidden>
-          <button id="exportJsonBtn" class="btn" title="Pobierz markers.json">Pobierz Dynie<span class="btn-sub">(Tylko Po Zalogowaniu)</span></button>
+          <button id="exportJsonBtn" class="btn" title="Pobierz markers.json">Pobierz Punkty<span class="btn-sub">(Tylko Po Zalogowaniu)</span></button>
           <button id="actionThanksBtn" class="btn" title="Podziękowania">Podziękowania</button>
           <button id="actionRespBtn" class="btn" title="Możliwe respy dyń">Możliwe respy dyń</button>
+          <div id="profileAvatar" class="profile-avatar" aria-controls="profilePanel" aria-expanded="false" title="Profil">
+            <img id="profileAvatarImg" class="profile-avatar-img" alt="Avatar" />
+            <span id="profileAvatarName" class="profile-avatar-name"></span>
+            <span class="chevron">▾</span>
+          </div>
+          <div id="profilePanel" class="accordion-panel" hidden>
+            <div class="accordion-content">
+              <div id="profileUser" class="profile-user"></div>
+              <div class="profile-actions">
+                <button id="editToggleBtn" class="btn">Login</button>
+                <button id="discordLogoutBtn" class="btn hidden">Wyloguj</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="help">  
-        Dynie są z roku 2025 (Jest możliwość wczytania)
+        Punkty są z roku 2025 jak i innych lat.
       </div>
       <div class="actions">
-        <button id="editToggleBtn" class="btn">Login</button>
-        <button id="discordLogoutBtn" class="btn hidden">Wyloguj</button>
         <span id="userIndicator" class="user-indicator"></span>
         <input id="importJsonInput" type="file" accept="application/json" class="hidden" />
-        
       </div>
     </div>
     
