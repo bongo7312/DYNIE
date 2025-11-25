@@ -578,6 +578,9 @@
 
   function updateAuthUI() {
     const token = getStoredToken();
+    if (!state.discordUser) {
+      try { const raw = localStorage.getItem('discord_user'); if (raw) state.discordUser = JSON.parse(raw); } catch (_) {}
+    }
     const hasUser = !!state.discordUser;
     // Pokazuj tylko przycisk wylogowania, login obsługuje editToggleBtn
     if (discordLogoutBtn) discordLogoutBtn.classList.toggle('hidden', !token);
@@ -1335,6 +1338,23 @@
   });
   (profileAvatar || profileBadge)?.addEventListener('click', () => {
     const trigger = profileAvatar || profileBadge;
+    try { actionsToggle?.click(); } catch (_) {}
     const expanded = trigger.getAttribute('aria-expanded') === 'true';
     if (expanded) collapseProfile(); else expandProfile();
   });
+
+  const __badgeImg = document.getElementById('profileBadgeImg');
+  function updateBadgeFromStorage() {
+    try {
+      const raw = localStorage.getItem('discord_user');
+      if (!raw) return;
+      const u = JSON.parse(raw);
+      let src = '';
+      if (u && u.avatar) src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`;
+      else if (u && u.discriminator) src = `https://cdn.discordapp.com/embed/avatars/${Number(u.discriminator)%5}.png`;
+      if (__badgeImg) __badgeImg.src = src;
+    } catch (_) {}
+  }
+  window.addEventListener('discordUserUpdated', updateBadgeFromStorage);
+  window.addEventListener('storage', (e) => { if (e.key === 'discord_user') updateBadgeFromStorage(); });
+  updateBadgeFromStorage();

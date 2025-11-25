@@ -113,6 +113,7 @@
         userIndicator.textContent = '';
       }
     }
+    try { window.dispatchEvent(new Event('discordUserUpdated')); } catch (_) {}
   }
 
   function clearDiscordAuth() {
@@ -122,6 +123,7 @@
       localStorage.removeItem(STORAGE_USER_KEY);
     } catch (_) {}
     updateAuthUI();
+    try { window.dispatchEvent(new Event('discordUserUpdated')); } catch (_) {}
     window.setEditorMode?.(false);
     window.setAuthorized?.(false);
     window.setAuthGateMessage?.('Zaloguj się przez Discord, aby kontynuować.');
@@ -164,6 +166,7 @@
       const user = await fetchDiscordUser(accessToken);
       try { localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(user)); } catch (_) {}
       updateAuthUI();
+      try { window.dispatchEvent(new Event('discordUserUpdated')); } catch (_) {}
       try {
         const roles = await fetchGuildMemberRoles(accessToken);
         const ok = roles.some(r => REQUIRED_ROLE_IDS.includes(String(r)));
