@@ -31,7 +31,7 @@ body {
   min-height: 64px;
 }
 
-.actions-left { position: absolute; left: 16px; top: 72px; display: inline-flex; gap: 8px; align-items: flex-start; }
+.actions-left { position: absolute; left: 16px; top: 80px; display: inline-flex; gap: 8px; align-items: flex-start; }
 .actions-toggle { padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(192,57,43,0.35); background: #202020; color: #ffffff; box-shadow: 0 2px 0 #c0392b, 0 6px 14px rgba(0,0,0,0.25); }
 .actions-toggle:hover { background: rgb(53, 28, 28); box-shadow: 0 2px 0 #c0392b, 0 6px 14px rgba(0,0,0,0.25), 0 0 24px rgba(192,57,43,0.35); }
 .actions-left { position: absolute; left: 16px; top: 56px; display: inline-flex; gap: 8px; align-items: flex-start; }
