@@ -527,7 +527,8 @@ body {
   min-width: 280px;
 }
 .gate-title { font-weight: 800; font-size: 20px; }
-.gate-msg { font-size: 14px; opacity: 0.95; }
+.gate-msg { font-size: 14px; opacity: 0.95; text-align: center; }
+.gate-msg small { display: block; font-size: 12px; opacity: 0.8; }
 
 .info-modal {
   position: fixed;
