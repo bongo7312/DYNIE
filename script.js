@@ -476,13 +476,9 @@
   const authGateMsg = document.getElementById('authGateMsg');
   const actionsToggle = document.getElementById('actionsToggle');
   const actionsPanel = document.getElementById('actionsPanel');
-  const profileAvatar = document.getElementById('profileAvatar');
-  const profilePanel = document.getElementById('profilePanel');
-  const profileUser = document.getElementById('profileUser');
-  const profileAvatarImg = document.getElementById('profileAvatarImg');
-  const profileAvatarName = document.getElementById('profileAvatarName');
   const profileBadge = document.getElementById('profileBadge');
   const profileBadgeImg = document.getElementById('profileBadgeImg');
+  const profileMenu = document.getElementById('profileMenu');
   // Elementy Discord usunięte z UI — pozostawiamy referencje null, jeśli istnieją w kodzie
   const discordLoginBtn = document.getElementById('discordLoginBtn');
   const discordLogoutBtn = document.getElementById('discordLogoutBtn');
@@ -594,23 +590,14 @@
         userIndicator.textContent = '';
       }
     }
-    if (profileUser) {
-      if (hasUser) {
-        profileUser.textContent = `Zalogowany: ${state.discordUser.username}#${state.discordUser.discriminator || ''}`;
-      } else {
-        profileUser.textContent = '';
-      }
-    }
-    if (profileAvatarImg || profileBadgeImg) {
+    if (profileBadgeImg) {
       if (hasUser) {
         const u = state.discordUser;
         let src = '';
         if (u && u.avatar) src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`;
         else if (u && u.discriminator) src = `https://cdn.discordapp.com/embed/avatars/${Number(u.discriminator)%5}.png`;
-        if (profileAvatarImg) profileAvatarImg.src = src;
         if (profileBadgeImg) profileBadgeImg.src = src;
       } else {
-        if (profileAvatarImg) profileAvatarImg.src = '';
         if (profileBadgeImg) profileBadgeImg.src = '';
       }
     }
@@ -1329,18 +1316,31 @@
     profilePanel.style.height = '0px';
     profileAvatar.setAttribute('aria-expanded', 'false');
   }
-  profilePanel?.addEventListener('transitionend', (e) => {
-    if (e.propertyName === 'height') {
-      const expanded = profileAvatar?.getAttribute('aria-expanded') === 'true';
-      profilePanel.style.height = expanded ? 'auto' : '0px';
-      if (!expanded) profilePanel.hidden = true;
+  function expandProfileMenu() {
+    if (!profileMenu) return;
+    profileMenu.hidden = false;
+    profileMenu.style.width = '0px';
+    void profileMenu.offsetWidth;
+    profileMenu.style.width = profileMenu.scrollWidth + 'px';
+    profileBadge?.setAttribute('aria-expanded', 'true');
+  }
+  function collapseProfileMenu() {
+    if (!profileMenu) return;
+    profileMenu.style.width = profileMenu.scrollWidth + 'px';
+    void profileMenu.offsetWidth;
+    profileMenu.style.width = '0px';
+    profileBadge?.setAttribute('aria-expanded', 'false');
+  }
+  profileMenu?.addEventListener('transitionend', (e) => {
+    if (e.propertyName === 'width') {
+      const expanded = profileBadge?.getAttribute('aria-expanded') === 'true';
+      profileMenu.style.width = expanded ? 'auto' : '0px';
+      if (!expanded) profileMenu.hidden = true;
     }
   });
-  (profileAvatar || profileBadge)?.addEventListener('click', () => {
-    const trigger = profileAvatar || profileBadge;
-    try { actionsToggle?.click(); } catch (_) {}
-    const expanded = trigger.getAttribute('aria-expanded') === 'true';
-    if (expanded) collapseProfile(); else expandProfile();
+  profileBadge?.addEventListener('click', () => {
+    const expanded = profileBadge.getAttribute('aria-expanded') === 'true';
+    if (expanded) collapseProfileMenu(); else expandProfileMenu();
   });
 
   const __badgeImg = document.getElementById('profileBadgeImg');
