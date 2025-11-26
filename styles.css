@@ -592,7 +592,7 @@ body {
 .profile-avatar { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 9999px; background: #232833; color: #dfe6ef; border: 1px solid rgba(192,57,43,0.45); cursor: pointer; }
 .profile-avatar-img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
 .profile-avatar-name { font-weight: 700; }
-.profile-badge { position: fixed; top: 56px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(192,57,43,0.6); box-shadow: 0 0 18px rgba(192,57,43,0.35); overflow: hidden; cursor: pointer; background: #232833; z-index: 1600; display: grid; place-items: center; transition: box-shadow 160ms ease, border-color 160ms ease; }
+.profile-badge { position: fixed; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(192,57,43,0.6); box-shadow: 0 0 18px rgba(192,57,43,0.35); overflow: hidden; cursor: pointer; background: #232833; z-index: 1600; display: grid; place-items: center; transition: box-shadow 160ms ease, border-color 160ms ease; }
 .profile-badge:hover { box-shadow: 0 0 22px rgba(231,76,60,0.85), 0 0 34px rgba(192,57,43,0.55); border-color: rgba(231,76,60,0.9); }
 .profile-badge img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .profile-menu { position: fixed; right: 12px; top: 56px; display: flex; flex-direction: column; align-items: stretch; gap: 8px; overflow: hidden; width: 0; transition: width 500ms ease; border: 1px solid rgba(192,57,43,0.35); border-radius: 12px; padding: 6px; box-shadow: 0 0 18px rgba(192,57,43,0.25); background: #1a1f27ee; z-index: 1500; }
