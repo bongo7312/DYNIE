@@ -14,12 +14,7 @@ html, body {
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background-color: #0f1217;
-  background-image: url('https://i.imgur.com/l9Lc9RE.jpg');
-  background-repeat: repeat;
-  background-size: 256px 256px;
-  background-position: top left;
-  background-attachment: fixed;
+  background: #0f1217;
   color: #b9b9b9;
 }
 
