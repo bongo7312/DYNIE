@@ -20,11 +20,12 @@ body {
 
 
 
-.topbar {
+.topbar { 
   padding: 8px 20px;
   display: flex;
+  flex-direction: column; /* <-- klucz */
   gap: 16px;
-  align-items: baseline;
+  align-items: flex-start;
   border-bottom: 1px solid #2a2f38;
   flex-wrap: wrap;
   position: relative;
