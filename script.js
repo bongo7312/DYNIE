@@ -583,7 +583,7 @@
     const configured = !!DISCORD_CLIENT_ID && /^\d{17,20}$/.test(DISCORD_CLIENT_ID) && !!DISCORD_REDIRECT_URI;
     if (userIndicator) {
       if (hasUser) {
-        userIndicator.textContent = `Zalogowany: ${state.discordUser.username}#${state.discordUser.discriminator || ''}`;
+        userIndicator.textContent = '';
       } else if (!configured) {
         userIndicator.textContent = 'Skonfiguruj Discord OAuth (Client ID i Redirect URI).';
       } else {
