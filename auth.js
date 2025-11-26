@@ -189,7 +189,7 @@
             try { localStorage.setItem('can_edit','1'); } catch (_) {}
           } else {
             window.setAuthorized?.(false);
-            window.setAuthGateMessage?.('Nie wykryto rangi na discord. Dołącz na serwer aby uzyskać dostęp bądź napisz emaila na adres: int3212@int.pl.<br><small>(odpiszemy w przeciągu 48h)</small>');
+            window.setAuthGateMessage?.('Nie wykryto rangi na discord. Dołącz na serwer aby uzyskać dostęp bądź napisz emaila na adres: int3212@int.pl.<br><small>(odpiszemy w przeciągu 48h ( dostęp do strony nie jest darmowy))</small>');
             try { localStorage.setItem('can_edit','0'); } catch (_) {}
           }
         } catch (_) {
