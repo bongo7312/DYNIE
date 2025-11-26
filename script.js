@@ -515,7 +515,7 @@
     }
   }
   function setAuthGateMessage(msg) {
-    if (authGateMsg) authGateMsg.textContent = msg || '';
+    if (authGateMsg) authGateMsg.innerHTML = msg || '';
   }
 
   // Wczytaj tryb edycji z pamięci przeglądarki
