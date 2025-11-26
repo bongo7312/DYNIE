@@ -99,14 +99,13 @@
     let user = null;
     try { const raw = localStorage.getItem(STORAGE_USER_KEY); if (raw) user = JSON.parse(raw); } catch (_) {}
     if (discordLogoutBtn) discordLogoutBtn.classList.toggle('hidden', !token);
+    const storedCanEdit = localStorage.getItem('can_edit') === '1';
+    const allowedById = user ? ALLOWED_EDITOR_IDS.includes(String(user.id)) : false;
+    const canEdit = !!(allowedById || storedCanEdit);
+    if (editToggleBtn) editToggleBtn.classList.toggle('hidden', !canEdit);
     if (userIndicator) {
       if (user) {
-        const allowed = ALLOWED_EDITOR_IDS.includes(String(user.id));
-        if (allowed) {
-          userIndicator.textContent = `Zalogowany: ${user.username}#${user.discriminator || ''}`;
-        } else {
-          userIndicator.textContent = 'Brak whitelisty do edytowania';
-        }
+        userIndicator.textContent = '';
       } else if (!DISCORD_CLIENT_ID || !/^\d{17,20}$/.test(DISCORD_CLIENT_ID) || !DISCORD_REDIRECT_URI) {
         userIndicator.textContent = 'Skonfiguruj Discord OAuth (Client ID i Redirect URI).';
       } else {
@@ -122,6 +121,7 @@
       localStorage.removeItem(STORAGE_TOKEN_EXP_KEY);
       localStorage.removeItem(STORAGE_USER_KEY);
     } catch (_) {}
+    try { localStorage.removeItem('can_edit'); } catch (_) {}
     updateAuthUI();
     try { window.dispatchEvent(new Event('discordUserUpdated')); } catch (_) {}
     window.setEditorMode?.(false);
@@ -172,9 +172,11 @@
         const ok = roles.some(r => REQUIRED_ROLE_IDS.includes(String(r)));
         if (ok) {
           window.setAuthorized?.(true);
+          try { localStorage.setItem('can_edit','1'); } catch (_) {}
         } else {
           window.setAuthorized?.(false);
           window.setAuthGateMessage?.('Nie posiadasz wymaganej rangi aby ją otrzymać to stań na wiadomo czym.');
+          try { localStorage.setItem('can_edit','0'); } catch (_) {}
         }
       } catch (e) {
         // Fallback: sprawdź członkostwo w serwerze
@@ -184,17 +186,21 @@
           const inGuild = Array.isArray(guilds) && guilds.some(g => String(g.id) === String(gid));
           if (inGuild) {
             window.setAuthorized?.(true);
+            try { localStorage.setItem('can_edit','1'); } catch (_) {}
           } else {
             window.setAuthorized?.(false);
             window.setAuthGateMessage?.('Nie wykryto członkostwa w serwerze. Dołącz do serwera lub skonfiguruj GUILD_ID.');
+            try { localStorage.setItem('can_edit','0'); } catch (_) {}
           }
         } catch (_) {
           window.setAuthorized?.(false);
           window.setAuthGateMessage?.('Autoryzacja wymaga konfiguracji GUILD_ID lub odpowiednich uprawnień.');
+          try { localStorage.setItem('can_edit','0'); } catch (_) {}
         }
       }
       if (ALLOWED_EDITOR_IDS.includes(String(user.id))) {
         window.setEditorMode?.(true);
+        try { localStorage.setItem('can_edit','1'); } catch (_) {}
       }
     } catch (err) {
       clearDiscordAuth();
