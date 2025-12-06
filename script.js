@@ -1359,10 +1359,20 @@
   window.addEventListener('discordUserUpdated', updateBadgeFromStorage);
   window.addEventListener('storage', (e) => { if (e.key === 'discord_user') updateBadgeFromStorage(); });
   updateBadgeFromStorage();
-  const pageClockEl = document.getElementById('pageClock');
+  function ensurePageClockEl() {
+    let el = document.getElementById('pageClock');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'pageClock';
+      el.className = 'page-clock';
+      document.body.appendChild(el);
+    }
+    el.classList.remove('hidden');
+    return el;
+  }
   function updatePageClock() {
-    if (!pageClockEl) return;
-    pageClockEl.textContent = new Date().toLocaleString('pl-PL');
+    const el = ensurePageClockEl();
+    el.textContent = new Date().toLocaleString('pl-PL');
   }
   updatePageClock();
   setInterval(updatePageClock, 1000);

@@ -377,7 +377,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 0 24px rgba(192, 57, 43, 0.35), 0 0 64px rgba(192, 57, 43, 0.2);
   font-weight: 600;
-  z-index: 1000;
+  z-index: 2501;
 }
 .role-overlay .overlay-actions { display: flex; column-gap: 8px; row-gap: 4px; align-items: center; justify-content: center; flex-wrap: wrap; }
 .role-overlay .overlay-actions .msg { width: 100%; text-align: center; margin-top: 8px; }
