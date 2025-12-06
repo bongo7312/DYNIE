@@ -1103,6 +1103,7 @@
     downloadJsonFile('markers.json', state.markersData);
   });
 
+
   importJsonBtn?.addEventListener('click', () => {
     if (!state.isEditor) { showLoginPrompt(); return; }
     importJsonInput?.click();
@@ -1358,3 +1359,10 @@
   window.addEventListener('discordUserUpdated', updateBadgeFromStorage);
   window.addEventListener('storage', (e) => { if (e.key === 'discord_user') updateBadgeFromStorage(); });
   updateBadgeFromStorage();
+  const pageClockEl = document.getElementById('pageClock');
+  function updatePageClock() {
+    if (!pageClockEl) return;
+    pageClockEl.textContent = new Date().toLocaleString('pl-PL');
+  }
+  updatePageClock();
+  setInterval(updatePageClock, 1000);
